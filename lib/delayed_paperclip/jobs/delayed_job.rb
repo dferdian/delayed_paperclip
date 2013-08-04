@@ -31,6 +31,12 @@ module DelayedPaperclip
       def success(job)
         instance.send("#{attachment_name}_success", job) if instance.respond_to?("#{attachment_name}_success")
       end
+      
+      private
+      
+      def instance
+        @instance ||= instance_klass.constantize.find(instance_id)
+      end
     end
   end
 end
