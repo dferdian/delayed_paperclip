@@ -27,6 +27,10 @@ module DelayedPaperclip
       def perform
         DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name)
       end
+      
+      def success(job)
+        instance.send("#{attachment_name}_success", job) if instance.respond_to?("#{attachment_name}_success")
+      end
     end
   end
 end
